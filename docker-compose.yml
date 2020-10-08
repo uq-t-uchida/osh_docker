@@ -5,10 +5,13 @@ services:
       context: ./docker/app
     volumes:
       - ./osh:/var/www/projects/osohshiki
+      - ./ter:/var/www/projects/ter
       - ./docker/app/Smarty:/var/www/projects/osohshiki/osohshiki.jp/lib/Smarty
       - ./docker/app/Zend:/var/www/projects/osohshiki/osohshiki.jp/lib/Zend
       - ./osh/osohshiki.jp/lib/Smarty_ext:/var/www/lib/Smarty_ext
       - ./osh/osohshiki.jp/lib/Zend_ext:/var/www/lib/Zend_ext
+      - ./docker/app/Smarty:/var/www/projects/ter/lib/Smarty
+      - ./docker/app/Zend:/var/www/projects/ter/lib/Zend
     ports:
       - "8080:80"
     depends_on:

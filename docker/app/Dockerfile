@@ -5,8 +5,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN yum update -y
 
 RUN yum install -y httpd unzip php php-devel php-mbstring php-pdo php-mysql php-pecl-apc php-gd php-xml php-mcrypt php-gd \
-  && sed -i -e '$adate.timezone = "Asia\/Tokyo"' /etc/php.ini
-  # && sed -i -e '$ainclude_path = "/var/www/lib/"' /etc/php.ini
+  && sed -i -e '$adate.timezone = "Asia\/Tokyo"' /etc/php.ini \
+  && sed -i -e '$ainclude_path = "/var/www/lib/"' /etc/php.ini
 
 COPY vhost.conf /etc/httpd/conf.d/vhost.conf
 
