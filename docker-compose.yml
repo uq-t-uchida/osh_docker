@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: ./docker/app
+    volumes:
+      - ./osh:/var/www/projects/osohshiki
+      - ./docker/app/Smarty:/var/www/projects/osohshiki/osohshiki.jp/lib/Smarty
+      - ./docker/app/Zend:/var/www/projects/osohshiki/osohshiki.jp/lib/Zend
+      - ./osh/osohshiki.jp/lib/Smarty_ext:/var/www/lib/Smarty_ext
+      - ./osh/osohshiki.jp/lib/Zend_ext:/var/www/lib/Zend_ext
+    ports:
+      - "8080:80"
+    depends_on:
+      - front-db
+    networks:
+      - default
+  front-db:
+    image: 'mysql:5.7'
+    ports:
+      - "13500:3306"
+    volumes:
+      - osh_mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: osh
+      MYSQL_DATABASE: osh
+      MYSQL_USER: osh
+      MYSQL_PASSWORD: osh
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    networks:
+      - default
+
+volumes:
+    osh_mysql_data:
+
